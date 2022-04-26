@@ -43,10 +43,9 @@ This is very useful in case your API is on a different domain, or if you want to
 ```bash
 $ docker run -e RAVEN_DSN=yourkey -e API_URL=http://myapi.example.com  \
   -e CONFIG_VARS=API_URL,RAVEN_DSN -p 8000:80 socialengine/nginx-spa:latest
- ==> Writing /app/config.js with {"RAVEN_DSN":"yourkey", "API_URL":"http://myapi.example.com"}
 ```
 
-This will create a `config.js` file, which you can then add to your index.html, or load asynchronously. The path can be controlled with `CONFIG_FILE_PATH` environmental variable.
+This will replace the `window.[VAR_NAME] = ''` in index.html.
 
 [push state]: https://developer.mozilla.org/en-US/docs/Web/API/History_API
 [latest]: https://github.com/SocialEngine/docker-nginx-spa/blob/master/Dockerfile

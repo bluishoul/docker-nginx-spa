@@ -1,13 +1,6 @@
-FROM nginx
+FROM nginx:1.21.6-alpine
 
-MAINTAINER Stepan Mazurov <stepan@socialengine.com>
-
-# This tool converts env vars into json to be injected into the config
-ADD https://s3.amazonaws.com/se-com-docs/bins/json_env /usr/local/bin/
-RUN chmod +x /usr/local/bin/json_env
-
-# Do not start daemon for nginx
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+MAINTAINER Bluishoul <bluishoul@gmail.com>
 
 # Overwrite default config
 COPY nginx-site.conf /etc/nginx/conf.d/default.conf
@@ -21,8 +14,8 @@ RUN mkdir /app
 RUN echo "<code>Add your index.html to /app: COPY index.html /app/index.html</code>" > /app/index.html
 
 # Copy our start script
-COPY start-container.sh /usr/local/bin/start-container
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT ["start-container"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["nginx"]
+CMD ["nginx", "-g", "daemon off;"]
